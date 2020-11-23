@@ -1,10 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 import 'Question.dart';
 import 'DataProv.dart';
 import 'package:japp_app/constants.dart';
-import 'package:provider/provider.dart';
 
 class Quiz extends ChangeNotifier {
   List<Question> questList = [];
@@ -300,6 +298,13 @@ class Quiz extends ChangeNotifier {
     notifyListeners();
   }
 
+  void nextNum() {
+    if (finishedQ != questList.length)
+      selectedNum =
+          questList.indexWhere((element) => !(element.hasAnswerGiven)) + 1;
+    notifyListeners();
+  }
+
   Color setColorNum(int x) {
     if (questList[x - 1].hasAnswerGiven) {
       if (x == selectedNum) {
@@ -351,7 +356,6 @@ class Quiz extends ChangeNotifier {
             color: Colors.red,
           ),
         );
-      ;
     }
     return Container(
       margin: EdgeInsets.all(2),

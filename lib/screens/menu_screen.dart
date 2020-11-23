@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:japp_app/screens/abc_screen.dart';
 import 'package:japp_app/Widgets/MainButton.dart';
 import 'package:japp_app/Widgets//CircleIcon.dart';
-import 'package:japp_app/constants.dart';
 
 class MainScreen extends StatelessWidget {
   static const String id = 'menu_screen';
@@ -61,11 +60,6 @@ class MainScreen extends StatelessWidget {
               Expanded(
                 flex: 3,
                 child: MainButton(
-                  ontap: () {
-                    for (var items in keysHira.entries) {
-                      print("'${items.value}' : '${items.key}',\n");
-                    }
-                  },
                   text: 'Слова',
                 ),
               ),

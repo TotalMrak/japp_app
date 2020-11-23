@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:japp_app/Models/Question.dart';
 import 'package:japp_app/Models/Quiz.dart';
 import 'package:provider/provider.dart';
 

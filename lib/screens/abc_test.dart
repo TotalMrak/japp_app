@@ -12,7 +12,7 @@ class ABCTestScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
-        padding: EdgeInsets.only(top: 50, bottom: 10),
+        padding: EdgeInsets.only(top: 50, bottom: 25),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -85,6 +85,46 @@ class ABCTestScreen extends StatelessWidget {
                         .variants[3],
                   ),
                 ],
+              ),
+            ),
+            Expanded(
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                child: AnimatedOpacity(
+                  opacity: Provider.of<Quiz>(context)
+                          .questList[Provider.of<Quiz>(context).selectedNum - 1]
+                          .hasAnswerGiven
+                      ? 1.0
+                      : 0.0,
+                  duration: Duration(milliseconds: 500),
+                  child: Container(
+                    width: double.infinity,
+                    child: FloatingActionButton.extended(
+                      backgroundColor: Provider.of<Quiz>(context).finishedQ !=
+                              Provider.of<Quiz>(context).questList.length
+                          ? Colors.blue
+                          : Colors.green,
+                      label: Icon(
+                        Icons.arrow_forward_rounded,
+                        size: 25,
+                      ),
+                      icon: Text(
+                        Provider.of<Quiz>(context).finishedQ !=
+                                Provider.of<Quiz>(context).questList.length
+                            ? 'Следующий символ'
+                            : 'Завершить тест',
+                        style: TextStyle(
+                            fontSize: 25,
+                            fontFamily: 'YanoneKaffeesatz',
+                            fontWeight: FontWeight.bold,
+                            letterSpacing: 2.5),
+                      ),
+                      onPressed: () {
+                        Provider.of<Quiz>(context, listen: false).nextNum();
+                      },
+                    ),
+                  ),
+                ),
               ),
             ),
           ],

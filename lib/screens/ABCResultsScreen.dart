@@ -87,7 +87,7 @@ class ABCResultsScreen extends StatelessWidget {
               )),
               GestureDetector(
                 onTap: () {
-                  Navigator.pushNamed(context, MainScreen.id);
+                  Navigator.pushReplacementNamed(context, MainScreen.id);
                 },
                 child: Container(
                   color: Colors.indigo,

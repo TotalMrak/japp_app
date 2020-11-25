@@ -58,10 +58,24 @@ class MainScreen extends StatelessWidget {
                   text: 'Азбука',
                 ),
               ),
-              Expanded(
-                flex: 3,
-                child: MainButton(
-                  text: 'Слова',
+              Builder(
+                builder: (context) => Expanded(
+                  flex: 3,
+                  child: MainButton(
+                    text: 'Слова',
+                    ontap: () {
+                      final snackBar = SnackBar(
+                        content: Text('В процессе...'),
+                        action: SnackBarAction(
+                          label: 'Undo',
+                          onPressed: () {
+                            // Some code to undo the change.
+                          },
+                        ),
+                      );
+                      Scaffold.of(context).showSnackBar(snackBar);
+                    },
+                  ),
                 ),
               ),
               Expanded(

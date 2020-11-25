@@ -24,12 +24,17 @@ class ABCTestScreen extends StatelessWidget {
               child: GridView.count(
                 scrollDirection: Axis.horizontal,
                 crossAxisCount: 1,
-                children: List.generate(Provider.of<Quiz>(context).listLength,
-                    (index) {
-                  return NumericBar(
-                    num: index + 1,
-                  );
-                }),
+                children: Provider.of<Quiz>(context).listLength != null &&
+                        Provider.of<Quiz>(context).questList?.length != 0
+                    ? List.generate(Provider.of<Quiz>(context).listLength,
+                        (index) {
+                        return NumericBar(
+                          num: index + 1,
+                        );
+                      })
+                    : List.generate(2, (index) {
+                        return CircularProgressIndicator();
+                      }),
               ),
             ),
             SizedBox(
@@ -127,7 +132,8 @@ class ABCTestScreen extends StatelessWidget {
                             Provider.of<Quiz>(context, listen: false)
                                 .questList
                                 .length)
-                          Navigator.pushNamed(context, ABCResultsScreen.id);
+                          Navigator.pushReplacementNamed(
+                              context, ABCResultsScreen.id);
                       },
                     ),
                   ),

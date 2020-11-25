@@ -296,6 +296,15 @@ class Quiz extends ChangeNotifier {
     notifyListeners();
   }
 
+  void quizFullClear() {
+    questList = [];
+    listLength = 0;
+    rdyKata = [];
+    rdyHira = [];
+    selectedNum = 1;
+    finishedQ = 0;
+  }
+
   void chooseNum(int x) {
     selectedNum = x;
     notifyListeners();

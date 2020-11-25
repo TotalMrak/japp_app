@@ -73,21 +73,29 @@ class ABCScreen extends StatelessWidget {
             ),
             GestureDetector(
               onTap: () {
-                Provider.of<Quiz>(context, listen: false).quizCreate();
-                Navigator.pushNamed(context, ABCTestScreen.id);
+                if (Provider.of<MainData>(context, listen: false)
+                    .checkLists()) {
+                  Provider.of<Quiz>(context, listen: false).quizCreate();
+                  Navigator.pushNamed(context, ABCTestScreen.id);
+                }
               },
-              child: Hero(
-                tag: '123',
-                child: Container(
-                  color: Provider.of<MainData>(context, listen: false)
-                          .selectedKatakana
-                          .isNotEmpty
-                      ? Colors.red
-                      : Colors.red[100],
-                  width: double.infinity,
-                  height: 80.0,
-                  child: Center(
-                    child: Text('Начать тест'),
+              child: AnimatedContainer(
+                duration: Duration(milliseconds: 500),
+                color:
+                    Provider.of<MainData>(context, listen: false).checkLists()
+                        ? Colors.indigo[400]
+                        : Colors.indigo[100],
+                width: double.infinity,
+                height: 80.0,
+                child: Center(
+                  child: Text(
+                    'Начать тест',
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 40,
+                        fontFamily: 'YanoneKaffeesatz',
+                        fontWeight: FontWeight.bold,
+                        letterSpacing: 2.5),
                   ),
                 ),
               ),

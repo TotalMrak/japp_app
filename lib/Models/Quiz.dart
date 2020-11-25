@@ -18,6 +18,9 @@ class Quiz extends ChangeNotifier {
   }
 
   void quizCreate() {
+    questList.clear();
+    finishedQ = 0;
+    selectedNum = 1;
     for (var s in rdyHira) {
       switch (s) {
         case 'a i u e o':

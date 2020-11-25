@@ -6,6 +6,7 @@ import 'package:japp_app/screens/words_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:japp_app/Models/DataProv.dart';
 import 'package:japp_app/Models/Quiz.dart';
+import 'screens/ABCResultsScreen.dart';
 
 void main() => runApp(MyApp());
 
@@ -31,6 +32,7 @@ class MyApp extends StatelessWidget {
           ABCScreen.id: (context) => ABCScreen(),
           WordsScreen.id: (context) => WordsScreen(),
           ABCTestScreen.id: (context) => ABCTestScreen(),
+          ABCResultsScreen.id: (context) => ABCResultsScreen(),
         },
       ),
     );

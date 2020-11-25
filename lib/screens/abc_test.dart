@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:japp_app/Models/Quiz.dart';
+import 'package:japp_app/screens/ABCResultsScreen.dart';
 import 'package:provider/provider.dart';
 import 'package:japp_app/Widgets/NumericBar.dart';
 import 'package:japp_app/Widgets/AnswerOptions.dart';
@@ -121,6 +122,12 @@ class ABCTestScreen extends StatelessWidget {
                       ),
                       onPressed: () {
                         Provider.of<Quiz>(context, listen: false).nextNum();
+                        if (Provider.of<Quiz>(context, listen: false)
+                                .finishedQ ==
+                            Provider.of<Quiz>(context, listen: false)
+                                .questList
+                                .length)
+                          Navigator.pushNamed(context, ABCResultsScreen.id);
                       },
                     ),
                   ),

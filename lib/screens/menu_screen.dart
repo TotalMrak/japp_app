@@ -11,11 +11,12 @@ class MainScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         backgroundColor: Colors.lightBlue,
         title: Text(
           "Первый шаг к Японии",
           style: TextStyle(
-              color: Colors.white54,
+              color: Colors.white,
               fontFamily: 'YanoneKaffeesatz',
               fontWeight: FontWeight.bold,
               letterSpacing: 2.5),

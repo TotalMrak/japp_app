@@ -1,3 +1,8 @@
+const List<String> choices = <String>[
+  "Катакана",
+  "Хирагана",
+];
+
 const List<String> SoundsEng = [
   'a i u e o',
   'K',
@@ -109,7 +114,7 @@ const Map<String, String> keysKata = {
   'shi': 'シ',
   'su': 'ス',
   'se': 'セ',
-  'so': 'ン',
+  'so': 'ソ',
   'za': 'ザ',
   'ji': 'ジ',
   'zu(z)': 'ズ',

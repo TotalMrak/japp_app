@@ -28,7 +28,7 @@ class ChooseButton extends StatelessWidget {
               line,
               style: TextStyle(
                 fontFamily: 'YanoneKaffeesatz',
-                fontSize: 45,
+                fontSize: 33,
                 color: checkPressed ? Colors.black54 : Colors.black,
               ),
             ),

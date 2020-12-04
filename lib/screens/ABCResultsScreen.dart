@@ -16,7 +16,10 @@ class ABCResultsScreen extends StatelessWidget {
     int allAns = Provider.of<Quiz>(context).finishedQ;
 
     return WillPopScope(
-      onWillPop: () async => false,
+      onWillPop: () async {
+        Navigator.of(context).pop();
+        return false;
+      },
       child: Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,

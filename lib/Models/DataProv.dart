@@ -94,12 +94,19 @@ class MainData extends ChangeNotifier {
   }
 
   void randomChars() {
-    _selectedHiragana.clear();
-    _selectedKatakana.clear();
+    clearAll();
     for (var i = 0; i < SoundsEng.length; i++) {
       if (Random().nextBool()) _selectedKatakana.add(SoundsEng[i]);
       if (Random().nextBool()) _selectedHiragana.add(SoundsEng[i]);
     }
     notifyListeners();
   }
+
+  void clearAll() {
+    _selectedKatakana.clear();
+    _selectedHiragana.clear();
+    notifyListeners();
+  }
+
+  void showPic(String s) {}
 }

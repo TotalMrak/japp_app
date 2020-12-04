@@ -30,17 +30,9 @@ class MainScreen extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: <Widget>[
-                  CircleIcon(
-                    icon: Icons.help,
-                    colour: Colors.black26,
-                  ),
                   SizedBox(
                     width: 5,
                   ),
-                  CircleIcon(
-                    icon: Icons.info_outline,
-                    colour: Colors.black26,
-                  )
                 ],
               ),
               Expanded(
@@ -65,7 +57,7 @@ class MainScreen extends StatelessWidget {
                     text: 'Слова',
                     ontap: () {
                       final snackBar = SnackBar(
-                        content: Text('В процессе...'),
+                        content: Text('В процессе разработки...'),
                         action: SnackBarAction(
                           label: 'Undo',
                           onPressed: () {

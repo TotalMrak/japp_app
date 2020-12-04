@@ -7,12 +7,17 @@ import 'package:provider/provider.dart';
 import 'package:japp_app/Models/DataProv.dart';
 import 'package:japp_app/Models/Quiz.dart';
 import 'screens/ABCResultsScreen.dart';
+import 'package:flutter/services.dart';
 
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
     return MultiProvider(
       providers: [
         ChangeNotifierProvider<MainData>(

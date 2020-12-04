@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:japp_app/Widgets/Bar.dart';
 import 'package:japp_app/constants.dart';
 import 'package:japp_app/screens/abc_test.dart';
+import 'package:photo_view/photo_view.dart';
 import 'package:provider/provider.dart';
 import 'package:japp_app/Models/DataProv.dart';
 import 'package:japp_app/Widgets/ChooseButton.dart';
@@ -15,6 +16,44 @@ class ABCScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        actions: <Widget>[
+          PopupMenuButton(
+            itemBuilder: (BuildContext context) {
+              return choices
+                  .map((String s) =>
+                      PopupMenuItem<String>(value: s, child: Text(s)))
+                  .toList();
+            },
+            onSelected: (String s) {
+              if (s == "Катакана")
+                showDialog(
+                    context: context,
+                    builder: (_) => Dialog(
+                            child: Container(
+                          width: 200,
+                          height: 200,
+                          decoration: BoxDecoration(),
+                          child: PhotoView(
+                            imageProvider: AssetImage('assets/Katakana.jpg'),
+                            backgroundDecoration: BoxDecoration(),
+                          ),
+                        )));
+              else
+                showDialog(
+                    context: context,
+                    builder: (_) => Dialog(
+                            child: Container(
+                          width: 200,
+                          height: 200,
+                          decoration: BoxDecoration(),
+                          child: PhotoView(
+                            imageProvider: AssetImage('assets/Hiragana.jpg'),
+                            backgroundDecoration: BoxDecoration(),
+                          ),
+                        )));
+            },
+          )
+        ],
         backgroundColor: Colors.indigo[400],
         title: Text(
           "Выберите символы",
@@ -27,7 +66,7 @@ class ABCScreen extends StatelessWidget {
         elevation: 10,
       ),
       body: Padding(
-        padding: EdgeInsets.only(left: 5, right: 5, bottom: 2),
+        padding: EdgeInsets.only(left: 5, right: 5, bottom: 5),
         child: Column(
           children: [
             Expanded(
@@ -43,7 +82,29 @@ class ABCScreen extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                RandButton(),
+                Column(
+                  children: [
+                    RandButton(),
+                    ElevatedButton(
+                      onPressed: () {
+                        Provider.of<MainData>(context, listen: false)
+                            .clearAll();
+                      },
+                      style: ButtonStyle(
+                        backgroundColor:
+                            MaterialStateProperty.all(Colors.amber),
+                      ),
+                      child: Text(
+                        "Сброс",
+                        style: TextStyle(
+                          fontFamily: 'YanoneKaffeesatz',
+                          fontSize: 30,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
                 Expanded(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,

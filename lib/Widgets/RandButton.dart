@@ -15,7 +15,7 @@ class RandButton extends StatelessWidget {
           Provider.of<MainData>(context, listen: false).randomChars();
         },
         height: 10,
-        color: Colors.deepOrangeAccent,
+        color: Colors.deepOrangeAccent[200],
         padding: EdgeInsets.all(10),
         minWidth: 200,
         child: Center(

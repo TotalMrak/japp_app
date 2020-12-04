@@ -15,8 +15,10 @@ class Bar extends StatelessWidget {
       onTap: () {
         Provider.of<MainData>(context, listen: false).updateChar(line);
       },
-      child: Container(
+      child: AnimatedContainer(
+        duration: Duration(milliseconds: 300),
         decoration: BoxDecoration(
+            border: Border.all(width: 0.5),
             gradient: LinearGradient(
                 colors: Provider.of<MainData>(context).barColour(line))),
         margin: EdgeInsets.all(2),

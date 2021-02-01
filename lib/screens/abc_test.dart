@@ -137,8 +137,7 @@ class ABCTestScreen extends StatelessWidget {
                             Provider.of<Quiz>(context, listen: false)
                                 .questList
                                 .length)
-                          Navigator.pushReplacementNamed(
-                              context, ABCResultsScreen.id);
+                          Navigator.pushNamed(context, ABCResultsScreen.id);
                       },
                     ),
                   ),

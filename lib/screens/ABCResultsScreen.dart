@@ -90,7 +90,8 @@ class ABCResultsScreen extends StatelessWidget {
               )),
               GestureDetector(
                 onTap: () {
-                  Navigator.pushReplacementNamed(context, MainScreen.id);
+                  Navigator.popUntil(
+                      context, ModalRoute.withName(MainScreen.id));
                 },
                 child: Container(
                   color: Colors.indigo,

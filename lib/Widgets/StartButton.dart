@@ -28,7 +28,7 @@ class StartButton extends StatelessWidget {
           onPressed: () {
             if (Provider.of<MainData>(context, listen: false).checkLists()) {
               Provider.of<Quiz>(context, listen: false).quizCreate();
-              Navigator.pushNamed(context, ABCTestScreen.id);
+              Navigator.popAndPushNamed(context, ABCTestScreen.id);
             }
           },
           style: ButtonStyle(

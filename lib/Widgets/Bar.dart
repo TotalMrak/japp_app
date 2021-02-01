@@ -18,14 +18,13 @@ class Bar extends StatelessWidget {
       child: AnimatedContainer(
         duration: Duration(milliseconds: 300),
         decoration: BoxDecoration(
-            border: Border.all(width: 0.5),
+            border: Border.all(width: 1, color: Colors.black38),
             gradient: LinearGradient(
                 colors: Provider.of<MainData>(context).barColour(line))),
-        margin: EdgeInsets.all(2),
         child: Center(
           child: Text(
             line,
-            style: TextStyle(fontSize: 27),
+            style: TextStyle(fontSize: 25, color: Colors.white),
           ),
         ),
       ),

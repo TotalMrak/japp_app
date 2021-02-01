@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:japp_app/Widgets/Bar.dart';
 import 'package:japp_app/constants.dart';
-import 'package:japp_app/screens/abc_test.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:provider/provider.dart';
 import 'package:japp_app/Models/DataProv.dart';
 import 'package:japp_app/Widgets/ChooseButton.dart';
 import 'package:japp_app/Widgets/RandButton.dart';
-import 'package:japp_app/Models/Quiz.dart';
+import 'package:japp_app/Widgets/StartButton.dart';
 
 class ABCScreen extends StatelessWidget {
   static const String id = 'abc_screen';
@@ -15,6 +14,7 @@ class ABCScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xFFf2f2f2),
       appBar: AppBar(
         actions: <Widget>[
           PopupMenuButton(
@@ -58,42 +58,72 @@ class ABCScreen extends StatelessWidget {
         title: Text(
           "Выберите символы",
           style: TextStyle(
-              color: Colors.white70,
-              fontFamily: 'YanoneKaffeesatz',
-              fontWeight: FontWeight.bold,
-              letterSpacing: 2.5),
+            color: Color(0xFFf2f2f2),
+            fontFamily: 'YanoneKaffeesatz',
+            fontWeight: FontWeight.bold,
+            fontSize: 25,
+            letterSpacing: 1,
+          ),
         ),
         elevation: 10,
       ),
       body: Padding(
-        padding: EdgeInsets.only(left: 5, right: 5, bottom: 5),
+        padding: EdgeInsets.only(left: 0, right: 0, bottom: 0),
         child: Column(
           children: [
-            Expanded(
-              flex: 9,
-              child: GridView.count(
-                  shrinkWrap: true,
-                  scrollDirection: Axis.vertical,
-                  crossAxisCount: 3,
-                  children: List.generate(15, (index) {
-                    return Bar(line: SoundsEng[index]);
-                  })),
+            SizedBox(
+              height: 12,
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Column(
-                  children: [
-                    RandButton(),
-                    ElevatedButton(
+            Expanded(
+              flex: 83,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  ChooseButton(
+                    line: 'Катакана',
+                    colorActive: katakanaColour,
+                    checkPressed: Provider.of<MainData>(context).katakanaOn,
+                    onTap: () {
+                      Provider.of<MainData>(context, listen: false)
+                          .changePressedKata();
+                    },
+                  ),
+                  ChooseButton(
+                    line: 'Хирагана',
+                    colorActive: hiraganaColour,
+                    checkPressed: Provider.of<MainData>(context).hiraganaOn,
+                    onTap: () {
+                      Provider.of<MainData>(context, listen: false)
+                          .changePressedHira();
+                    },
+                  ),
+                ],
+              ),
+            ),
+            Expanded(
+              flex: 46,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Expanded(child: RandButton()),
+                  Expanded(
+                    child: ElevatedButton(
                       onPressed: () {
                         Provider.of<MainData>(context, listen: false)
                             .clearAll();
                       },
                       style: ButtonStyle(
-                        backgroundColor:
-                            MaterialStateProperty.all(Colors.amber),
-                      ),
+                          backgroundColor:
+                              MaterialStateProperty.all(Color(0xFF03A9F5)),
+                          minimumSize: MaterialStateProperty.all(Size(148, 46)),
+                          shape: MaterialStateProperty.all(
+                              RoundedRectangleBorder(
+                                  side: BorderSide(
+                                      color: Colors.black45, width: 10.0),
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(30)))),
+                          side: MaterialStateProperty.all(
+                              BorderSide(width: 0.5))),
                       child: Text(
                         "Сброс",
                         style: TextStyle(
@@ -103,64 +133,34 @@ class ABCScreen extends StatelessWidget {
                         ),
                       ),
                     ),
-                  ],
-                ),
-                Expanded(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      ChooseButton(
-                        line: 'Катакана',
-                        colorActive: Colors.blue,
-                        checkPressed: Provider.of<MainData>(context).katakanaOn,
-                        onTap: () {
-                          Provider.of<MainData>(context, listen: false)
-                              .changePressedKata();
-                        },
-                      ),
-                      ChooseButton(
-                        line: 'Хирагана',
-                        colorActive: Colors.greenAccent,
-                        checkPressed: Provider.of<MainData>(context).hiraganaOn,
-                        onTap: () {
-                          Provider.of<MainData>(context, listen: false)
-                              .changePressedHira();
-                        },
-                      ),
-                    ],
                   ),
-                ),
-              ],
-            ),
-            GestureDetector(
-              onTap: () {
-                if (Provider.of<MainData>(context, listen: false)
-                    .checkLists()) {
-                  Provider.of<Quiz>(context, listen: false).quizCreate();
-                  Navigator.pushNamed(context, ABCTestScreen.id);
-                }
-              },
-              child: AnimatedContainer(
-                duration: Duration(milliseconds: 500),
-                color:
-                    Provider.of<MainData>(context, listen: false).checkLists()
-                        ? Colors.indigo[400]
-                        : Colors.indigo[100],
-                width: double.infinity,
-                height: 80.0,
-                child: Center(
-                  child: Text(
-                    'Начать тест',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 40,
-                        fontFamily: 'YanoneKaffeesatz',
-                        fontWeight: FontWeight.bold,
-                        letterSpacing: 2.5),
-                  ),
-                ),
+                  Expanded(child: SizedBox())
+                ],
               ),
             ),
+            SizedBox(height: 9),
+            Container(
+              height: 2,
+              width: double.infinity,
+              color: Colors.yellow[700],
+            ),
+            Expanded(
+              flex: 397,
+              child: GridView.count(
+                  childAspectRatio: 1.2,
+                  shrinkWrap: true,
+                  scrollDirection: Axis.vertical,
+                  crossAxisCount: 3,
+                  children: List.generate(15, (index) {
+                    return Bar(line: SoundsEng[index]);
+                  })),
+            ),
+            Container(
+              height: 2,
+              width: double.infinity,
+              color: Colors.yellow[700],
+            ),
+            StartButton(),
           ],
         ),
       ),

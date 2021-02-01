@@ -36,6 +36,9 @@ class MainData extends ChangeNotifier {
         updateKataChar(s);
       }
       if (!(hiraganaOn | katakanaOn)) {
+        if (!(_selectedKatakana.contains(s) | _selectedHiragana.contains(s))) {
+          //TODO!
+        }
         if (_selectedKatakana.contains(s)) _selectedKatakana.remove(s);
         if (_selectedHiragana.contains(s)) _selectedHiragana.remove(s);
       }
@@ -75,21 +78,21 @@ class MainData extends ChangeNotifier {
     List<Color> res = [];
     if (selectedHiragana.contains(s)) {
       if (selectedKatakana.contains(s)) {
-        res.add(Colors.blueAccent);
-        res.add(Colors.greenAccent);
+        res.add(katakanaColour);
+        res.add(hiraganaColour);
         return res;
       } else {
-        res.add(Colors.greenAccent);
-        res.add(Colors.greenAccent);
+        res.add(hiraganaColour);
+        res.add(hiraganaColour);
         return res;
       }
     } else if (selectedKatakana.contains(s)) {
-      res.add(Colors.blueAccent);
-      res.add(Colors.blueAccent);
+      res.add(katakanaColour);
+      res.add(katakanaColour);
       return res;
     }
-    res.add(Colors.blueGrey[100]);
-    res.add(Colors.blueGrey[100]);
+    res.add(inactiveColour);
+    res.add(inactiveColour);
     return res;
   }
 

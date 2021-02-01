@@ -1,3 +1,9 @@
+import 'package:flutter/cupertino.dart';
+
+const Color katakanaColour = Color(0xFF438AFE);
+const Color hiraganaColour = Color(0xFF50B149);
+const Color inactiveColour = Color(0xFF607D8B);
+
 const List<String> choices = <String>[
   "Катакана",
   "Хирагана",

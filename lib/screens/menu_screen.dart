@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:japp_app/screens/abc_screen.dart';
 import 'package:japp_app/Widgets/MainButton.dart';
-import 'package:japp_app/Widgets//CircleIcon.dart';
 
 class MainScreen extends StatelessWidget {
   static const String id = 'menu_screen';

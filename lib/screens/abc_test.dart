@@ -5,12 +5,15 @@ import 'package:japp_app/screens/ABCResultsScreen.dart';
 import 'package:provider/provider.dart';
 import 'package:japp_app/Widgets/NumericBar.dart';
 import 'package:japp_app/Widgets/AnswerOptions.dart';
+import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 class ABCTestScreen extends StatelessWidget {
   static const String id = 'abctest_screen';
 
   @override
   Widget build(BuildContext context) {
+    final ItemScrollController Controller = ItemScrollController();
+
     return Scaffold(
       body: Padding(
         padding: EdgeInsets.only(top: 50, bottom: 25),
@@ -21,20 +24,14 @@ class ABCTestScreen extends StatelessWidget {
             Container(
               color: Colors.grey[100],
               height: 50,
-              child: GridView.count(
+              child: ScrollablePositionedList.builder(
                 scrollDirection: Axis.horizontal,
-                crossAxisCount: 1,
-                children: Provider.of<Quiz>(context).listLength != null &&
-                        Provider.of<Quiz>(context).questList?.length != 0
-                    ? List.generate(Provider.of<Quiz>(context).listLength,
-                        (index) {
-                        return NumericBar(
-                          num: index + 1,
-                        );
-                      })
-                    : List.generate(2, (index) {
-                        return CircularProgressIndicator();
-                      }),
+                itemCount: Provider.of<Quiz>(context).listLength,
+                itemBuilder: (context, index) => NumericBar(
+                  num: index + 1,
+                  controller: Controller,
+                ),
+                itemScrollController: Controller,
               ),
             ),
             SizedBox(
@@ -127,6 +124,14 @@ class ABCTestScreen extends StatelessWidget {
                       ),
                       onPressed: () {
                         Provider.of<Quiz>(context, listen: false).nextNum();
+                        Controller.scrollTo(
+                            index: Provider.of<Quiz>(context, listen: false)
+                                    .selectedNum -
+                                1,
+                            duration: Duration(seconds: 1),
+                            alignment: 0.7,
+                            curve: Curves.easeOut,
+                            opacityAnimationWeights: const [20, 20, 60]);
                         if (Provider.of<Quiz>(context, listen: false)
                                 .finishedQ ==
                             Provider.of<Quiz>(context, listen: false)

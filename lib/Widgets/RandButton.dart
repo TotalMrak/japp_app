@@ -9,26 +9,18 @@ class RandButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      child: MaterialButton(
+    return Ink(
+      decoration: ShapeDecoration(
+          color: Colors.amberAccent,
+          shape:
+              CircleBorder(side: BorderSide(width: 0.7, color: Colors.blue))),
+      child: IconButton(
+        icon: Icon(Icons.alt_route),
         onPressed: () {
           Provider.of<MainData>(context, listen: false).randomChars();
         },
-        height: 10,
-        color: Colors.deepOrangeAccent[200],
-        padding: EdgeInsets.all(10),
-        minWidth: 200,
-        child: Center(
-          child: Text(
-            'Перемешать',
-            style: TextStyle(
-              fontSize: 30.0,
-              fontFamily: 'YanoneKaffeesatz',
-            ),
-          ),
-        ),
+        color: Colors.white,
       ),
-      borderRadius: BorderRadius.all(Radius.circular(20)),
     );
   }
 }

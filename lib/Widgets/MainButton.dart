@@ -5,8 +5,8 @@ class MainButton extends StatelessWidget {
       {this.text,
       this.colour = Colors.lightBlueAccent,
       this.ontap,
-      this.fontsize = 30,
-      this.buttonheight = 40});
+      this.fontsize = 50,
+      this.buttonheight = 80});
 
   final String text;
   final Color colour;
@@ -29,8 +29,9 @@ class MainButton extends StatelessWidget {
           child: Text(
             text,
             style: TextStyle(
-              color: Colors.white,
+              fontFamily: 'YanoneKaffeesatz',
               fontSize: fontsize,
+              color: Colors.white,
             ),
           ),
         ),

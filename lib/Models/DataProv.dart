@@ -36,9 +36,6 @@ class MainData extends ChangeNotifier {
         updateKataChar(s);
       }
       if (!(hiraganaOn | katakanaOn)) {
-        if (!(_selectedKatakana.contains(s) | _selectedHiragana.contains(s))) {
-          //TODO!
-        }
         if (_selectedKatakana.contains(s)) _selectedKatakana.remove(s);
         if (_selectedHiragana.contains(s)) _selectedHiragana.remove(s);
       }
@@ -110,6 +107,4 @@ class MainData extends ChangeNotifier {
     _selectedHiragana.clear();
     notifyListeners();
   }
-
-  void showPic(String s) {}
 }

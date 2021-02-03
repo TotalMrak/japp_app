@@ -12,7 +12,7 @@ class ABCTestScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ItemScrollController Controller = ItemScrollController();
+    final ItemScrollController controller = ItemScrollController();
 
     return Scaffold(
       body: Padding(
@@ -29,9 +29,9 @@ class ABCTestScreen extends StatelessWidget {
                 itemCount: Provider.of<Quiz>(context).listLength,
                 itemBuilder: (context, index) => NumericBar(
                   num: index + 1,
-                  controller: Controller,
+                  controller: controller,
                 ),
-                itemScrollController: Controller,
+                itemScrollController: controller,
               ),
             ),
             SizedBox(
@@ -124,7 +124,7 @@ class ABCTestScreen extends StatelessWidget {
                       ),
                       onPressed: () {
                         Provider.of<Quiz>(context, listen: false).nextNum();
-                        Controller.scrollTo(
+                        controller.scrollTo(
                             index: Provider.of<Quiz>(context, listen: false)
                                     .selectedNum -
                                 1,

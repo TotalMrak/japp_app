@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:japp_app/screens/ArchiveScreen.dart';
 import 'package:japp_app/screens/abc_screen.dart';
 import 'package:japp_app/screens/abc_test.dart';
 import 'package:japp_app/screens/menu_screen.dart';
@@ -23,11 +24,8 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider<MainData>(
           create: (context) => MainData(),
         ),
-        ChangeNotifierProxyProvider<MainData, Quiz>(
-          create: (BuildContext context) =>
-              Quiz(Provider.of<MainData>(context, listen: false)),
-          update: (BuildContext context, MainData mainData, Quiz quiz) =>
-              Quiz(mainData),
+        ChangeNotifierProvider<Quiz>(
+          create: (context) => Quiz(),
         ),
       ],
       child: MaterialApp(
@@ -38,6 +36,7 @@ class MyApp extends StatelessWidget {
           WordsScreen.id: (context) => WordsScreen(),
           ABCTestScreen.id: (context) => ABCTestScreen(),
           ABCResultsScreen.id: (context) => ABCResultsScreen(),
+          ArchiveScreen.id: (context) => ArchiveScreen()
         },
       ),
     );

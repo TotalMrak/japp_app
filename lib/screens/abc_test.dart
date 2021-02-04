@@ -13,6 +13,8 @@ class ABCTestScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ItemScrollController controller = ItemScrollController();
+    var questNum = Provider.of<Quiz>(context)
+        .questList[Provider.of<Quiz>(context).selectedNum - 1];
 
     return Scaffold(
       body: Padding(
@@ -52,10 +54,7 @@ class ABCTestScreen extends StatelessWidget {
                     height: 100,
                     child: Center(
                       child: Text(
-                        Provider.of<Quiz>(context)
-                            .questList[
-                                Provider.of<Quiz>(context).selectedNum - 1]
-                            .symbol,
+                        questNum.symbol,
                         style: TextStyle(
                             fontFamily: 'YanoneKaffeesatz',
                             fontWeight: FontWeight.bold,
@@ -68,24 +67,16 @@ class ABCTestScreen extends StatelessWidget {
                     height: 50,
                   ),
                   AnswerOptions(
-                    option: Provider.of<Quiz>(context)
-                        .questList[Provider.of<Quiz>(context).selectedNum - 1]
-                        .variants[0],
+                    option: questNum.variants[0],
                   ),
                   AnswerOptions(
-                    option: Provider.of<Quiz>(context)
-                        .questList[Provider.of<Quiz>(context).selectedNum - 1]
-                        .variants[1],
+                    option: questNum.variants[1],
                   ),
                   AnswerOptions(
-                    option: Provider.of<Quiz>(context)
-                        .questList[Provider.of<Quiz>(context).selectedNum - 1]
-                        .variants[2],
+                    option: questNum.variants[2],
                   ),
                   AnswerOptions(
-                    option: Provider.of<Quiz>(context)
-                        .questList[Provider.of<Quiz>(context).selectedNum - 1]
-                        .variants[3],
+                    option: questNum.variants[3],
                   ),
                 ],
               ),
@@ -94,11 +85,7 @@ class ABCTestScreen extends StatelessWidget {
               child: Align(
                 alignment: Alignment.bottomCenter,
                 child: AnimatedOpacity(
-                  opacity: Provider.of<Quiz>(context)
-                          .questList[Provider.of<Quiz>(context).selectedNum - 1]
-                          .hasAnswerGiven
-                      ? 1.0
-                      : 0.0,
+                  opacity: questNum.hasAnswerGiven ? 1.0 : 0.0,
                   duration: Duration(milliseconds: 500),
                   child: Container(
                     width: double.infinity,

@@ -1,5 +1,6 @@
 import 'package:japp_app/constants.dart';
 import 'dart:math';
+import 'dart:convert';
 
 class Question {
   String _symbol;
@@ -30,10 +31,45 @@ class Question {
     variants.shuffle();
   }
 
+  Question._ready(String symbol, String answer, List<String> variants,
+      bool hasAnswerGiven, String myAnswer) {
+    this._symbol = symbol;
+    this._answer = answer;
+    this.variants = variants;
+    this.hasAnswerGiven = hasAnswerGiven;
+    this.myAnswer = myAnswer;
+  }
+
   void readAnswer(String ans) {
     hasAnswerGiven = true;
     myAnswer = ans;
   }
 
   bool answerIsRight(String ans) => ans == _answer;
+
+  String cardToJSON(Question data) {
+    final dyn = data.toJson();
+    return json.encode(dyn);
+  }
+
+  Map<String, dynamic> toJson() => {
+        "symbol": _symbol,
+        "answer": _answer,
+        "variants": List<dynamic>.from(variants.map((x) => x)),
+        "hasAnswerGiven": hasAnswerGiven,
+        "myAnswer": myAnswer,
+      };
+
+  factory Question.fromJson(Map<String, dynamic> json) => Question._ready(
+        json["symbol"],
+        json["answer"],
+        List<String>.from(json["variants"].map((x) => x)),
+        json["hasAnswerGiven"],
+        json["myAnswer"],
+      );
+
+  Question clientFromJson(String str) {
+    final jsonData = json.decode(str);
+    return Question.fromJson(jsonData);
+  }
 }

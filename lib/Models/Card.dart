@@ -1,5 +1,6 @@
 import 'Question.dart';
 import 'package:japp_app/constants.dart';
+import 'dart:convert';
 
 class QCard {
   DateTime _dateTime;
@@ -19,7 +20,7 @@ class QCard {
   }
 
   void progressUp() {
-    if (_progress < 100) _progress++;
+    _progress++;
   }
 
   QCard(List<String> kata, List<String> hira) {
@@ -296,5 +297,35 @@ class QCard {
       }
     }
     _questList.shuffle();
+  }
+
+  QCard._ready(DateTime dateTime, int progress, List<Question> questList) {
+    this._dateTime = dateTime;
+    this._progress = progress;
+    this._questList = questList;
+  }
+
+  String cardToJSON(QCard data) {
+    final dyn = data.toJson();
+    return json.encode(dyn);
+  }
+
+  Map<String, dynamic> toJson() => {
+        "datetime": _dateTime.toIso8601String(),
+        "progress": _progress,
+        "questions": _questList.map((x) => x.toJson()).toList(),
+      };
+
+  factory QCard.fromJson(Map<String, dynamic> json) => QCard._ready(
+        DateTime.tryParse(json["datetime"]),
+        json["progress"],
+        List<Question>.from((json["questions"] as List)
+            .map((x) => Question.fromJson(x))
+            .toList()),
+      );
+
+  QCard cardFromJson(String str) {
+    final jsonData = json.decode(str);
+    return QCard.fromJson(jsonData);
   }
 }

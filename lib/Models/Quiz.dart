@@ -22,6 +22,17 @@ class Quiz extends ChangeNotifier {
     notifyListeners();
   }
 
+  void quizFromCardCreate(QCard qcard) {
+    questList.clear();
+    card = qcard;
+    finishedQ = 0;
+    selectedNum = 1;
+    questList = card.questList;
+    questList.shuffle();
+    listLength = questList.length;
+    notifyListeners();
+  }
+
   void quizFullClear() {
     questList = [];
     listLength = 0;

@@ -1,6 +1,7 @@
 import 'package:sqflite/sqflite.dart';
 import 'package:sqflite/sqlite_api.dart';
 import 'package:path/path.dart';
+import 'Card.dart';
 
 class DBProvider {
   DBProvider._();
@@ -17,27 +18,42 @@ class DBProvider {
   initDB() async {
     return await openDatabase(join(await getDatabasesPath(), 'archive.db'),
         onCreate: (db, version) async {
-      await db.execute('''CREATE TABLE users (card)''');
+      await db.execute(
+          "CREATE TABLE cards(datetime TEXT, progress INTEGER, questions TEXT)");
     }, version: 1);
   }
 
-  newCard(newCard) async {
+  Future<void> insertCard(QCard newCard) async {
     final db = await database;
-    var res = await db.rawInsert('''
-    INSERT INTO Cards(Card)
-    VALUE (?)
-    ''', [newCard.card]);
-    return res;
+    await db.insert("cards", newCard.toJson());
   }
 
-  Future<dynamic> getCard() async {
+  Future<List<QCard>> getCards() async {
     final db = await database;
-    var res = await db.query("card");
-    if (res.length == 0) {
-      return null;
-    } else {
-      var resMap = res[0];
-      return resMap.isNotEmpty ? resMap : Null;
-    }
+    var res = await db.query("cards");
+    print("1. SUCCES? ${res.isNotEmpty} //");
+    List<QCard> list =
+        res.isNotEmpty ? res.map((e) => QCard.fromJson(e)).toList() : [];
+    print(list);
+    return list;
+  }
+
+  Future<void> updateCards(QCard card) async {
+    final db = await database;
+    await db.update(
+      'cards',
+      card.toJson(),
+      where: "date_time = ?",
+      whereArgs: [card.dateTime.toIso8601String()],
+    );
+  }
+
+  Future<void> deleteCard(DateTime dateTime) async {
+    final db = await database;
+    await db.delete(
+      'cards',
+      where: "date_time = ?",
+      whereArgs: [dateTime],
+    );
   }
 }

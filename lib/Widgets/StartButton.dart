@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:japp_app/Models/Quiz.dart';
 import 'package:japp_app/screens/abc_test.dart';
 import 'package:japp_app/Models/DataProv.dart';
+import 'package:japp_app/Models/DBP.dart';
 
 class StartButton extends StatelessWidget {
   const StartButton({
@@ -29,6 +30,10 @@ class StartButton extends StatelessWidget {
             if (Provider.of<MainData>(context, listen: false).checkLists()) {
               Provider.of<Quiz>(context, listen: false)
                   .quizCreate(Provider.of<MainData>(context, listen: false));
+              DBProvider.db
+                  .insertCard(Provider.of<Quiz>(context, listen: false).card);
+              // DBProvider.db.deleteCard(
+              //     Provider.of<Quiz>(context, listen: false).card.dateTime);
               Navigator.popAndPushNamed(context, ABCTestScreen.id);
             }
           },

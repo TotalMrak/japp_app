@@ -34,10 +34,15 @@ class Question {
   Question._ready(String symbol, String answer, List<String> variants,
       bool hasAnswerGiven, String myAnswer) {
     this._symbol = symbol;
+    print('symbol good');
     this._answer = answer;
+    print('answer good');
     this.variants = variants;
+    print('variants good');
     this.hasAnswerGiven = hasAnswerGiven;
+    print('hasanswergiven good');
     this.myAnswer = myAnswer;
+    print('myanswer is good');
   }
 
   void readAnswer(String ans) {

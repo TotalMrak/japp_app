@@ -301,8 +301,11 @@ class QCard {
 
   QCard._ready(DateTime dateTime, int progress, List<Question> questList) {
     this._dateTime = dateTime;
+    print("DATETIME FINE");
     this._progress = progress;
+    print("Progress FINE");
     this._questList = questList;
+    print("questList FINE");
   }
 
   String cardToJSON(QCard data) {
@@ -313,19 +316,41 @@ class QCard {
   Map<String, dynamic> toJson() => {
         "datetime": _dateTime.toIso8601String(),
         "progress": _progress,
-        "questions": _questList.map((x) => x.toJson()).toList(),
+        "questions": List<dynamic>.from(_questList.map((e) => e.toJson())),
       };
 
-  factory QCard.fromJson(Map<String, dynamic> json) => QCard._ready(
-        DateTime.tryParse(json["datetime"]),
-        json["progress"],
-        List<Question>.from((json["questions"] as List)
-            .map((x) => Question.fromJson(x))
-            .toList()),
-      );
+  factory QCard.fromJson(Map<String, dynamic> json) {
+    print("ready json");
+    var res = QCard._ready(
+      DateTime.parse(json["datetime"]),
+      json["progress"],
+      List<Question>.from(json["questions"].map((x) => Question.fromJson(x)))
+          .toList(),
+    );
+    print("${res.progress}; ${res.dateTime}");
+    return res;
+  }
 
   QCard cardFromJson(String str) {
     final jsonData = json.decode(str);
     return QCard.fromJson(jsonData);
   }
+}
+
+bool checkJsonQuestion(Question q1, Question q2) {
+  // check if both are lists
+  if (!(q1.variants is List && q2.variants is List)
+      // check if both have same length
+      ||
+      q1.variants.length != q2.variants.length) {
+    return false;
+  }
+
+  // check if elements are equal
+  for (int i = 0; i < q1.variants.length; i++) {
+    if (q1.variants[i] != q2.variants[i]) {
+      return false;
+    }
+  }
+  return true;
 }

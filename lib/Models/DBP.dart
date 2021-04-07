@@ -31,10 +31,8 @@ class DBProvider {
   Future<List<QCard>> getCards() async {
     final db = await database;
     var res = await db.query("cards");
-    print("1. SUCCES? ${res.isNotEmpty} //");
     List<QCard> list =
         res.isNotEmpty ? res.map((e) => QCard.fromJson(e)).toList() : [];
-    print(list);
     return list;
   }
 
@@ -43,7 +41,7 @@ class DBProvider {
     await db.update(
       'cards',
       card.toJson(),
-      where: "date_time = ?",
+      where: "datetime = ?",
       whereArgs: [card.dateTime.toIso8601String()],
     );
   }
@@ -52,8 +50,8 @@ class DBProvider {
     final db = await database;
     await db.delete(
       'cards',
-      where: "date_time = ?",
-      whereArgs: [dateTime],
+      where: "datetime = ?",
+      whereArgs: [dateTime.toIso8601String()],
     );
   }
 }

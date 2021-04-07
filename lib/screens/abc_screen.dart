@@ -14,7 +14,6 @@ class ABCScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFf2f2f2),
       appBar: AppBar(
         actions: <Widget>[
           PopupMenuButton(
@@ -59,9 +58,8 @@ class ABCScreen extends StatelessWidget {
           "Выберите символы",
           style: TextStyle(
             color: Color(0xFFf2f2f2),
-            fontFamily: 'YanoneKaffeesatz',
             fontWeight: FontWeight.bold,
-            fontSize: 25,
+            fontSize: 20,
             letterSpacing: 1,
           ),
         ),
@@ -127,7 +125,6 @@ class ABCScreen extends StatelessWidget {
                       child: Text(
                         "Сброс",
                         style: TextStyle(
-                          fontFamily: 'YanoneKaffeesatz',
                           fontSize: 30,
                           color: Colors.white,
                         ),

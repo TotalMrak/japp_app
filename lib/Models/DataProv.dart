@@ -9,6 +9,7 @@ class MainData extends ChangeNotifier {
   List<String> _selectedHiragana = [];
   bool hiraganaOn = false;
   bool katakanaOn = false;
+  int boxesChecked = 0;
 
   UnmodifiableListView<String> get selectedKatakana {
     return UnmodifiableListView(_selectedKatakana);

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:japp_app/Models/ArchiveData.dart';
 import 'package:provider/provider.dart';
 import 'package:japp_app/Models/Quiz.dart';
 import 'package:japp_app/screens/abc_test.dart';
 import 'package:japp_app/Models/DataProv.dart';
-import 'package:japp_app/Models/DBP.dart';
 
 class StartButton extends StatelessWidget {
   const StartButton({
@@ -21,7 +21,6 @@ class StartButton extends StatelessWidget {
               style: TextStyle(
                   color: Colors.white,
                   fontSize: 40,
-                  fontFamily: 'YanoneKaffeesatz',
                   fontWeight: FontWeight.bold,
                   letterSpacing: 2.5),
             ),
@@ -30,10 +29,7 @@ class StartButton extends StatelessWidget {
             if (Provider.of<MainData>(context, listen: false).checkLists()) {
               Provider.of<Quiz>(context, listen: false)
                   .quizCreate(Provider.of<MainData>(context, listen: false));
-              DBProvider.db
-                  .insertCard(Provider.of<Quiz>(context, listen: false).card);
-              // DBProvider.db.deleteCard(
-              //     Provider.of<Quiz>(context, listen: false).card.dateTime);
+              Provider.of<ArchiveData>(context, listen: false).getArchive();
               Navigator.popAndPushNamed(context, ABCTestScreen.id);
             }
           },
@@ -73,7 +69,6 @@ class StartButton extends StatelessWidget {
 //               style: TextStyle(
 //                   color: Colors.white,
 //                   fontSize: 40,
-//                   fontFamily: 'YanoneKaffeesatz',
 //                   fontWeight: FontWeight.bold,
 //                   letterSpacing: 2.5),
 //             ),

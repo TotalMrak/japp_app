@@ -6,6 +6,7 @@ class QCard {
   DateTime _dateTime;
   int _progress;
   List<Question> _questList = [];
+  bool check = false;
 
   List<Question> get questList {
     return _questList;
@@ -17,6 +18,10 @@ class QCard {
 
   int get progress {
     return _progress;
+  }
+
+  void toggleDone() {
+    check = !check;
   }
 
   void progressUp() {
@@ -301,11 +306,8 @@ class QCard {
 
   QCard._ready(DateTime dateTime, int progress, List<Question> questList) {
     this._dateTime = dateTime;
-    print("DATETIME FINE");
     this._progress = progress;
-    print("Progress FINE");
     this._questList = questList;
-    print("questList FINE");
   }
 
   String cardToJSON(QCard data) {
@@ -316,18 +318,17 @@ class QCard {
   Map<String, dynamic> toJson() => {
         "datetime": _dateTime.toIso8601String(),
         "progress": _progress,
-        "questions": List<dynamic>.from(_questList.map((e) => e.toJson())),
+        "questions":
+            List<dynamic>.from(_questList.map((e) => e.toJson())).join('_'),
       };
 
   factory QCard.fromJson(Map<String, dynamic> json) {
-    print("ready json");
     var res = QCard._ready(
       DateTime.parse(json["datetime"]),
       json["progress"],
-      List<Question>.from(json["questions"].map((x) => Question.fromJson(x)))
-          .toList(),
+      List<Question>.from(
+          splitToQuestionList(json["questions"].toString().split('_'))),
     );
-    print("${res.progress}; ${res.dateTime}");
     return res;
   }
 
@@ -353,4 +354,21 @@ bool checkJsonQuestion(Question q1, Question q2) {
     }
   }
   return true;
+}
+
+List<Question> splitToQuestionList(List<String> s) {
+  List<Question> res = [];
+  for (var e in s) {
+    String s1 = e.substring(9, e.indexOf(','));
+    String s2 = e.substring(e.indexOf('answer: ') + 8, e.indexOf(", var"));
+    List<String> s3 =
+        e.substring(e.indexOf('ants: [') + 7, e.indexOf('], has')).split(', ');
+    bool s4 =
+        e.substring(e.indexOf('Given: ') + 7, e.indexOf(', myAnswer')).length ==
+            4;
+    var s5t = e.substring(e.indexOf('myAnswer: ') + 10, e.indexOf('}'));
+    var s5 = s5t == 'null' ? null : s5t;
+    res.add(Question.ready(s1, s2, s3, s4, s5));
+  }
+  return res;
 }

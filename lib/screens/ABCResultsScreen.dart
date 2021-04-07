@@ -15,6 +15,8 @@ class ABCResultsScreen extends StatelessWidget {
         .length;
     int allAns = Provider.of<Quiz>(context).finishedQ;
 
+    Provider.of<Quiz>(context).quizDeleteCard();
+
     return WillPopScope(
       onWillPop: () async {
         Navigator.of(context).pop();
@@ -23,12 +25,10 @@ class ABCResultsScreen extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
-          backgroundColor: Colors.indigo[400],
           title: Text(
             'Результаты теста',
             style: TextStyle(
               color: Colors.white70,
-              fontFamily: 'YanoneKaffeesatz',
               fontWeight: FontWeight.bold,
               letterSpacing: 2.5,
             ),
@@ -48,8 +48,7 @@ class ABCResultsScreen extends StatelessWidget {
                 child: Text(
                   'Правильных ответов: ',
                   style: TextStyle(
-                      fontSize: 55,
-                      fontFamily: 'YanoneKaffeesatz',
+                      fontSize: 40,
                       color: Colors.lightGreen,
                       fontWeight: FontWeight.bold,
                       letterSpacing: 2.5),
@@ -71,18 +70,17 @@ class ABCResultsScreen extends StatelessWidget {
                     Text(
                       '$goodAns/$allAns',
                       style: TextStyle(
-                          fontSize: 85,
-                          fontFamily: 'YanoneKaffeesatz',
+                          fontSize: 50,
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
                           letterSpacing: 2.5),
                     ),
                     Text(
-                      '${(goodAns / allAns * 100).toStringAsFixed(2)}%',
+                      '${(goodAns / allAns * 100).toStringAsFixed(1)}%',
                       style: TextStyle(
-                          fontSize: 65,
-                          fontFamily: 'YanoneKaffeesatz',
-                          color: Colors.grey[200],
+                          fontSize: 45,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
                           letterSpacing: 2.5),
                     ),
                   ],
@@ -101,9 +99,8 @@ class ABCResultsScreen extends StatelessWidget {
                     child: Text(
                       'Начать новый тест',
                       style: TextStyle(
-                          fontSize: 40,
+                          fontSize: 30,
                           fontWeight: FontWeight.bold,
-                          fontFamily: 'YanoneKaffeesatz',
                           color: Colors.white,
                           letterSpacing: 2.5),
                     ),

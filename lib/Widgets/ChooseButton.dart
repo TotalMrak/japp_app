@@ -17,7 +17,6 @@ class ChooseButton extends StatelessWidget {
             child: Text(
               line,
               style: TextStyle(
-                fontFamily: 'YanoneKaffeesatz',
                 fontSize: 30,
                 color: Colors.white,
               ),
@@ -48,7 +47,6 @@ class ChooseButton extends StatelessWidget {
 //             child: Text(
 //               line,
 //               style: TextStyle(
-//                 fontFamily: 'YanoneKaffeesatz',
 //                 fontSize: 30,
 //                 color: checkPressed ? Colors.black : Colors.white,
 //               ),

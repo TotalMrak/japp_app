@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:japp_app/Models/DBP.dart';
 import 'Question.dart';
 import 'DataProv.dart';
 import 'Card.dart';
@@ -19,16 +20,20 @@ class Quiz extends ChangeNotifier {
     questList = card.questList;
     questList.shuffle();
     listLength = questList.length;
+    DBProvider.db.insertCard(card);
     notifyListeners();
+  }
+
+  void quizDeleteCard() {
+    DBProvider.db.deleteCard(card.dateTime);
   }
 
   void quizFromCardCreate(QCard qcard) {
     questList.clear();
     card = qcard;
-    finishedQ = 0;
+    finishedQ = card.questList.where((e) => e.hasAnswerGiven).length;
     selectedNum = 1;
     questList = card.questList;
-    questList.shuffle();
     listLength = questList.length;
     notifyListeners();
   }
@@ -75,6 +80,7 @@ class Quiz extends ChangeNotifier {
       finishedQ++;
     }
     card.progressUp();
+    DBProvider.db.updateCards(card);
     notifyListeners();
   }
 

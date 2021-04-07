@@ -36,7 +36,6 @@ class AnswerOptions extends StatelessWidget {
               option,
               style: TextStyle(
                   fontSize: 25,
-                  fontFamily: 'YanoneKaffeesatz',
                   fontWeight: FontWeight.bold,
                   letterSpacing: 2.5),
             ),

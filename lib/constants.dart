@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 const Color katakanaColour = Color(0xFF438AFE);
 const Color hiraganaColour = Color(0xFF50B149);
@@ -8,6 +9,14 @@ const List<String> choices = <String>[
   "Катакана",
   "Хирагана",
 ];
+
+ButtonStyle archiveCardStyle = ButtonStyle(
+    backgroundColor: MaterialStateProperty.all(Colors.indigo[200]),
+    minimumSize: MaterialStateProperty.all(Size(179, 83)),
+    shape: MaterialStateProperty.all(RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(Radius.circular(15)))),
+    side: MaterialStateProperty.all(
+        BorderSide(width: 0.2, color: Colors.indigo)));
 
 const List<String> SoundsEng = [
   'a i u e o',

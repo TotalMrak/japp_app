@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:japp_app/Models/ArchiveData.dart';
 import 'package:japp_app/screens/ArchiveScreen.dart';
 import 'package:japp_app/screens/abc_screen.dart';
 import 'package:japp_app/screens/abc_test.dart';
 import 'package:japp_app/screens/menu_screen.dart';
 import 'package:japp_app/screens/words_screen.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import 'package:japp_app/Models/DataProv.dart';
 import 'package:japp_app/Models/Quiz.dart';
@@ -27,8 +29,16 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider<Quiz>(
           create: (context) => Quiz(),
         ),
+        ChangeNotifierProvider(
+          create: (context) => ArchiveData(),
+        ),
       ],
       child: MaterialApp(
+        theme: ThemeData(
+          scaffoldBackgroundColor: Colors.indigo[50],
+          fontFamily: 'Ubuntu',
+          appBarTheme: AppBarTheme(color: Colors.redAccent[700]),
+        ),
         initialRoute: MainScreen.id,
         routes: {
           MainScreen.id: (context) => MainScreen(),
@@ -37,6 +47,17 @@ class MyApp extends StatelessWidget {
           ABCTestScreen.id: (context) => ABCTestScreen(),
           ABCResultsScreen.id: (context) => ABCResultsScreen(),
           ArchiveScreen.id: (context) => ArchiveScreen()
+        },
+        onGenerateRoute: (settings) {
+          switch (settings.name) {
+            case 'abc_screen':
+              return PageTransition(
+                  child: ABCScreen(),
+                  type: PageTransitionType.rightToLeftWithFade);
+              break;
+            default:
+              return null;
+          }
         },
       ),
     );

@@ -1,20 +1,50 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:japp_app/Models/ArchiveData.dart';
+import 'package:japp_app/Models/WordsData.dart';
 import 'package:japp_app/screens/ArchiveScreen.dart';
 import 'package:japp_app/screens/abc_screen.dart';
 import 'package:japp_app/Widgets/MainButton.dart';
 import 'package:provider/provider.dart';
 import 'package:animate_do/animate_do.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:path_provider/path_provider.dart';
 
-class MainScreen extends StatelessWidget {
-  static const String id = 'menu_screen';
+import 'words_screen.dart';
 
-  String _url = 'https://github.com/TotalMrak/japp_app';
+class MainScreen extends StatefulWidget {
+  static const String id = 'main_screen';
+
+  @override
+  _MainScreenState createState() => _MainScreenState();
+}
+
+class _MainScreenState extends State<MainScreen> {
+  createDir() async {
+    Directory baseDir = await getExternalStorageDirectory();
+    String dirToBeCreated = "Words";
+    String finalDir = baseDir.path + "/" + dirToBeCreated;
+    var dir = Directory(finalDir);
+    bool dirExists = await dir.exists();
+    if (!dirExists) {
+      print("not created");
+      dir.create();
+    } else {
+      print("fine!");
+    }
+  }
+
+  final String _url = 'https://github.com/TotalMrak/japp_app';
   void _launchURL() async => await canLaunch(_url)
       ? await launch(_url)
       : throw 'Could not launch $_url';
+  @override
+  initState() {
+    createDir(); //call your method here
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -158,18 +188,9 @@ class MainScreen extends StatelessWidget {
                           ),
                         ],
                         onTap: () {
-                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                            content: const Text(
-                              "В процессе разработки...",
-                              textAlign: TextAlign.center,
-                            ),
-                            duration: const Duration(seconds: 2),
-                            behavior: SnackBarBehavior.floating,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10.0),
-                            ), // Width of the SnackBar.
-                            width: 250,
-                          ));
+                          Provider.of<WordsData>(context, listen: false)
+                              .getFiles();
+                          Navigator.pushNamed(context, WordsScreen.id);
                         },
                       ),
                     ),

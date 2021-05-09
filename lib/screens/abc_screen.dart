@@ -29,8 +29,6 @@ class ABCScreen extends StatelessWidget {
                     context: context,
                     builder: (_) => Dialog(
                             child: Container(
-                          width: 200,
-                          height: 200,
                           decoration: BoxDecoration(),
                           child: PhotoView(
                             imageProvider: AssetImage('assets/Katakana.jpg'),
@@ -42,8 +40,6 @@ class ABCScreen extends StatelessWidget {
                     context: context,
                     builder: (_) => Dialog(
                             child: Container(
-                          width: 200,
-                          height: 200,
                           decoration: BoxDecoration(),
                           child: PhotoView(
                             imageProvider: AssetImage('assets/Hiragana.jpg'),

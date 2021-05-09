@@ -66,39 +66,3 @@ class ArchiveScreen extends StatelessWidget {
     );
   }
 }
-
-/*class ArchiveScreen extends StatefulWidget {
-  static const String id = 'archive_screen';
-  @override
-  _ArchiveScreenState createState() => _ArchiveScreenState();
-}
-
-class _ArchiveScreenState extends State<ArchiveScreen> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          title: Row(children: [Text('Архив')]),
-        ),
-        body: FutureBuilder<List<QCard>>(
-          future: DBProvider.db.getCards(),
-          builder: (BuildContext context, AsyncSnapshot<List<QCard>> snapshot) {
-            if (snapshot.hasData) {
-              return ListView.separated(
-                  padding: const EdgeInsets.all(12),
-                  separatorBuilder: (BuildContext context, int index) =>
-                      const Divider(),
-                  itemCount: snapshot.data.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    QCard item = snapshot.data[index];
-                    return ArchiveCard(card: item);
-                  });
-            } else {
-              return Center(
-                child: CircularProgressIndicator(),
-              );
-            }
-          },
-        ));
-  }
-}*/

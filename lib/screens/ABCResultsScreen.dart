@@ -23,6 +23,7 @@ class ABCResultsScreen extends StatelessWidget {
         return false;
       },
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
         appBar: AppBar(
           automaticallyImplyLeading: false,
           title: Text(

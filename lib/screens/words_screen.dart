@@ -1,6 +1,11 @@
+import 'dart:io';
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
+import 'package:japp_app/Models/Card.dart';
+import 'package:japp_app/Models/DBP.dart';
+import 'package:japp_app/Models/Quiz.dart';
 import 'package:japp_app/Models/WordsData.dart';
+import 'package:japp_app/screens/abc_test.dart';
 import 'package:japp_app/screens/creation_screen.dart';
 import 'package:provider/provider.dart';
 
@@ -65,7 +70,7 @@ class WordsScreen extends StatelessWidget {
                       TextButton(
                         child: Text('Да'),
                         onPressed: () {
-                          wordsData.deleteChoosen();
+                          wordsData.deleteChosen();
                           Navigator.of(context).pop();
                         },
                       ),
@@ -92,6 +97,7 @@ class WordsScreen extends StatelessWidget {
           return false;
         },
         child: Scaffold(
+          resizeToAvoidBottomInset: false,
           floatingActionButton: ElasticIn(
             duration: Duration(milliseconds: 400),
             child: FloatingActionButton.extended(
@@ -106,8 +112,9 @@ class WordsScreen extends StatelessWidget {
             ),
           ),
           appBar: AppBar(
+            backgroundColor: Colors.indigo[400],
             title: Text('Архив'),
-            actions: wordsData.choosenDirs.isEmpty ? act1 : act2,
+            actions: wordsData.chosenDirs.isEmpty ? act1 : act2,
           ),
           body: ListView.separated(
             separatorBuilder: (BuildContext context, int index) =>
@@ -117,16 +124,34 @@ class WordsScreen extends StatelessWidget {
             itemBuilder: (context, index) {
               return ListTile(
                 title: Text(wordsData.dirs[index].path.split('/').last),
-                leading: Icon(Icons.folder),
+                leading: (wordsData.dirs[index] is Directory)
+                    ? Icon(
+                        Icons.folder,
+                        color: Colors.red,
+                        size: 30,
+                      )
+                    : Image.asset(
+                        'assets/test_words.png',
+                        width: 41,
+                        height: 41,
+                      ),
                 trailing: Checkbox(
-                  value: wordsData.choosenDirs.contains(wordsData.dirs[index]),
+                  value: wordsData.chosenDirs.contains(wordsData.dirs[index]),
                   onChanged: (value) {
                     wordsData.chooseFile(wordsData.dirs[index]);
                     print('ssss');
                   },
                 ),
                 onTap: () {
-                  wordsData.openFile(wordsData.dirs[index]);
+                  if (wordsData.dirs[index] is Directory) {
+                    wordsData.openFile(wordsData.dirs[index]);
+                  } else {
+                    QCard card = wordsData.openTest(wordsData.dirs[index]);
+                    DBProvider.db.insertCard(card);
+                    Provider.of<Quiz>(context, listen: false)
+                        .quizFromCardCreate(card);
+                    Navigator.popAndPushNamed(context, ABCTestScreen.id);
+                  }
                 },
                 onLongPress: () {
                   showDialog(

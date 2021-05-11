@@ -11,6 +11,7 @@ class ArchiveScreen extends StatelessWidget {
     return Consumer<ArchiveData>(
       builder: (context, archiveData, child) {
         return Scaffold(
+          resizeToAvoidBottomInset: false,
           appBar: AppBar(
             title: Text('Архив'),
             actions: [

@@ -25,6 +25,7 @@ class ABCTestScreen extends StatelessWidget {
         return false;
       },
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
         body: Padding(
           padding: EdgeInsets.only(top: 50, bottom: 25),
           child: Column(

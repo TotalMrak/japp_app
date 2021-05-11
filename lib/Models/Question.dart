@@ -22,7 +22,10 @@ class Question {
     _answer = a;
     variants.add(a);
     for (int i = 0; i < 3; i++) {
-      var x = keysKata.keys.elementAt(Random().nextInt(keysKata.length));
+      var rbool = Random().nextBool();
+      var x = rbool
+          ? keysKata.keys.elementAt(Random().nextInt(keysKata.length))
+          : keysHira.keys.elementAt(Random().nextInt(keysHira.length));
       if (!variants.contains(x))
         variants.add(x);
       else
@@ -38,6 +41,33 @@ class Question {
     this.variants = variants;
     this.hasAnswerGiven = hasAnswerGiven;
     this.myAnswer = myAnswer;
+  }
+
+  Question.words(String s, String a, Map<String, String> map) {
+    var rbool = Random().nextBool();
+    if (rbool) {
+      _symbol = s;
+      _answer = a;
+      variants.add(a);
+      for (int i = 0; i < 3; i++) {
+        var x = map.keys.elementAt(Random().nextInt(map.length));
+        if (!variants.contains(x))
+          variants.add(x);
+        else
+          i--;
+      }
+    } else {
+      _symbol = a;
+      _answer = s;
+      variants.add(s);
+      for (int i = 0; i < 3; i++) {
+        var x = map.values.elementAt(Random().nextInt(map.length));
+        if (!variants.contains(x))
+          variants.add(x);
+        else
+          i--;
+      }
+    }
   }
 
   void readAnswer(String ans) {

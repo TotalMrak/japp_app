@@ -304,6 +304,12 @@ class QCard {
     _questList.shuffle();
   }
 
+  QCard.words(List<Question> questReady) {
+    _dateTime = DateTime.now();
+    _progress = 0;
+    _questList = questReady;
+  }
+
   QCard._ready(DateTime dateTime, int progress, List<Question> questList) {
     this._dateTime = dateTime;
     this._progress = progress;

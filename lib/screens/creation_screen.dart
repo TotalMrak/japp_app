@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import '../Models/CreationData.dart';
 
 class CreationScreen extends StatefulWidget {
+  static final apiKey = 'AIzaSyCKybm470JLEPixG7-W0QzacqD7cF0WnLU';
   static const String id = "Creation_Screen";
   @override
   _CreationScreenState createState() => _CreationScreenState();
@@ -114,7 +115,6 @@ class _CreationScreenState extends State<CreationScreen> {
                         Container(
                           width: MediaQuery.of(context).size.width / 1.4,
                           child: TextField(
-                            enabled: creationData.fieldEnabled,
                             controller: txt2,
                             decoration: InputDecoration(
                               border: OutlineInputBorder(
@@ -136,7 +136,12 @@ class _CreationScreenState extends State<CreationScreen> {
                                 txt2.text =
                                     await creationData.translateToJap(txt.text);
                               } catch (e) {
-                                summonSnackBar(context, "Ошибка сети");
+                                try {
+                                  txt2.text = await creationData
+                                      .translateFromGoogle(txt.text);
+                                } catch (e) {
+                                  summonSnackBar(context, "Ошибка сети");
+                                }
                               }
                             }
                           },

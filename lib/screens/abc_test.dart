@@ -109,7 +109,7 @@ class ABCTestScreen extends StatelessWidget {
                         icon: Text(
                           Provider.of<Quiz>(context).finishedQ !=
                                   Provider.of<Quiz>(context).questList.length
-                              ? 'Следующий символ'
+                              ? 'Следующий вопрос'
                               : 'Завершить тест',
                           style: TextStyle(
                               fontSize: 25,

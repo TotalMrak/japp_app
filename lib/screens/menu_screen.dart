@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:japp_app/Models/ArchiveData.dart';
 import 'package:japp_app/Models/WordsData.dart';
 import 'package:japp_app/screens/ArchiveScreen.dart';
@@ -22,6 +23,15 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
+  copyAsset(String file) async {
+    Directory baseDir = await getExternalStorageDirectory();
+    String finalDir = baseDir.path + "/" + 'Words';
+    ByteData data = await rootBundle.load('assets/$file');
+    List<int> bytes =
+        data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
+    File(finalDir + '/$file').writeAsBytes(bytes);
+  }
+
   createDir() async {
     Directory baseDir = await getExternalStorageDirectory();
     String dirToBeCreated = "Words";
@@ -29,10 +39,15 @@ class _MainScreenState extends State<MainScreen> {
     var dir = Directory(finalDir);
     bool dirExists = await dir.exists();
     if (!dirExists) {
-      print("not created");
       dir.create();
-    } else {
-      print("fine!");
+      copyAsset('Базовые разговорные слова.txt');
+      copyAsset('Деятельность.txt');
+      copyAsset('Дом.txt');
+      copyAsset('Еда и напитки.txt');
+      copyAsset('Одежда.txt');
+      copyAsset('Разное.txt');
+      copyAsset('Улица.txt');
+      copyAsset('Цифры.txt');
     }
   }
 
